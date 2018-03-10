@@ -23,39 +23,59 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
 
 /* modal */
 
-.modal-header{
+.modal-header {
   background-color: #2e756f;
   color: #fff;
   margin-bottom: 30px;
 }
 
 .modal-body > p {
-  padding:8px;
+  padding: 8px;
 }
 
-.material-icons{
+.material-icons {
   padding-right: 6px;
-  color:#717171;
+  color: #717171;
 }
 
-.contact__details{
-  padding-left:2.2em;
+.contact__details {
+  padding-left: 2.2em;
 }
 
 .contact-online,
-.contact-online > i{
+.contact-online > i {
   text-align: center;
-  color:green;
+  color: #8cfd8c;
 }
 .contact-offline,
-.contact-offline>i {
-    text-align: center;
-    color:red;
+.contact-offline > i {
+  text-align: center;
+  color: red;
+}
+
+.modal-header__profile-image {
+  border-radius: 100%;
+}
+
+/* fix for the navigation logo */
+img.d-inline-block.align-top {
+  padding-right: 10px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.interactive-header :hover{
+  color: teal;
 }

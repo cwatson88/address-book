@@ -48,3 +48,14 @@
 .contact__details{
   padding-left:2.2em;
 }
+
+.contact-online,
+.contact-online > i{
+  text-align: center;
+  color:green;
+}
+.contact-offline,
+.contact-offline>i {
+    text-align: center;
+    color:red;
+}

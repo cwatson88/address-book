@@ -14,10 +14,10 @@ import zebra from "../profileIcons/zebra.svg";
 class AddressTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-        contacts: props.contacts.data,
-        emailAtoZ: false,
-        nameAtoZ: true 
+    this.state = {
+      contacts: props.contacts.data,
+      emailAtoZ: false,
+      nameAtoZ: true
     };
 
     this.sortContacts = this.sortContacts.bind(this);
@@ -28,27 +28,29 @@ class AddressTable extends Component {
    *
    * @memberof AddressTable
    *
-   * Sort depending on the string passed in, this could be either email or name.
+   * Sort depending on the string passed in, this could be either email or name (type of Arrray).
+   * 
+   * sortDirection argument will be passed the state for either this.state.emailAtoZ or nameAtoZ this will allow the function to know if the email or name is sorted AtoZ (true) or ZtoA (false) 
    *
    */
-  sortContacts(elementName) {
+  sortContacts(elementName, sortDirection) {
     let contactsArray = { ...this.state }; // get a deep copy of the state data to avoid state mutation
-    if (this.state.emailAtoZ) {
-        contactsArray = contactsArray.contacts.sort((a, b) =>
-          a[elementName].localeCompare(b[elementName])
-        );
-    } else { 
-        contactsArray = contactsArray.contacts.sort((a, b) =>
-          b[elementName].localeCompare(a[elementName])
-        );
+    if (sortDirection) {
+      contactsArray = contactsArray.contacts.sort((a, b) =>
+        a[elementName].localeCompare(b[elementName])
+      );
+    } else {
+      contactsArray = contactsArray.contacts.sort((a, b) =>
+        b[elementName].localeCompare(a[elementName])
+      );
     }
-    
 
     this.setState({ contacts: contactsArray });
   }
 
   render() {
     // functions
+
     const getCompanyName = email => {
       // get the company name from the email address and then convert the first letter to upper case
       const regex = /(?=)[^@]*(?=\.)/g; // get everything after the @ and before the . in the email
@@ -107,14 +109,20 @@ class AddressTable extends Component {
           </thead>
           <tbody>
             {this.state.contacts.map(person => {
-              return <tr key={person.guid} data-toggle="modal" data-target="#contactModal">
+              return (
+                <tr
+                  key={person.guid}
+                  data-toggle="modal"
+                  data-target="#contactModal"
+                >
                   <td>
                     <img alt="profile" src={profilePicture(profileSVG)} />
                   </td>
                   <td>{person.name}</td>
                   <td>{person.email}</td>
                   <td>{getCompanyName(person.email)}</td>
-                </tr>;
+                </tr>
+              );
             })}
           </tbody>
         </table>

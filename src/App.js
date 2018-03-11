@@ -99,13 +99,15 @@ class App extends Component {
 
   updateSearchValue = event => {
     // if there is a value then run the searchContacts func
-    event.target.value && this.searchContacts(); // debounce would be good here
     this.setState({ search: event.target.value });
+    // if the target value is set then run the func and pass the value
+    event.target.value && this.searchContacts(null, event.target.value); // debounce would be good here
   };
 
-  searchContacts = async event => {
+  // use default parameters for event if it is left blank
+  searchContacts = async (event = null, searchValue) => {
     event && event.preventDefault();
-    const searchString = this.state.search;
+    const searchString = searchValue || this.state.search;
 
     const key = await getKey(); // wait untill the key has been retrieved or it will be undefined
 

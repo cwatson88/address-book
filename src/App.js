@@ -20,7 +20,7 @@ const getKey = () =>
     .catch(function(error) {
       console.log(error);
     });
-
+//three calls below could be refactored
 const getAllContacts = authenticationkey =>
   axios
     .get(apiURL, { params: { k: authenticationkey } })

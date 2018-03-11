@@ -15,7 +15,8 @@
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-family: "abel";
+  font-size: 2.8em;
 }
 
 .App-intro {
@@ -76,6 +77,15 @@ img.d-inline-block.align-top {
   cursor: pointer;
 }
 
-.interactive-header :hover{
+.interactive-header :hover {
   color: teal;
+}
+
+header.App-header {
+  height: inherit;
+}
+
+.profile-picture {
+  max-height: 50px;
+  max-width: 50px;
 }

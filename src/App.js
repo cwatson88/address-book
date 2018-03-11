@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // before the component mounts get the contacts from the api using an immiadatley invoked function
+    // before the component mounts get the contacts from the api using an immediatley invoked function
     (async () => {
       const key = await getKey(); // wait untill the key has been retrieved or it will be undefined
       getAllContacts(key).then(data => {
@@ -104,12 +104,21 @@ class App extends Component {
   searchContacts = async event => {
     event.preventDefault();
     const searchString = this.state.search;
-
+    //    if (this.state.search === '' ){
+    //   const getAllContacts = async () => {
+    //     const key = await getKey(); // wait untill the key has been retrieved or it will be undefined
+    //     getAllContacts(key).then(data => {
+    //       this.setState({ contacts: data });
+    //     });
+    //   }
+    //   getAllContacts()
+    // } else {
     const key = await getKey(); // wait untill the key has been retrieved or it will be undefined
     getSearchContacts(searchString, key).then(res => {
       const data = res.data;
       this.setState({ contacts: data });
     });
+    // }
   };
 
   updateContactDetails = async (contactUID, updatedName) => {
@@ -117,57 +126,34 @@ class App extends Component {
     return getContactDetails(contactUID, key).then(res => {
       const data = { ...res.data.data[0] };
       this.setState({ contactDetails: data });
-      return data[0];
     });
   };
 
   render() {
-    return (
-      <div className="App container">
-        <header className="App-header">
-          <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand">
-              <img
-                src="https://www.doublestruck.co.uk/wp-content/themes/html5blank-doublestruck/img/logo-ds.svg"
-                width="150"
-                height="auto"
-                className="d-inline-block align-top"
-                alt="logo"
-              />
-              Super Address Book
-            </a>
-            <form
-              className="form-inline my-2 my-lg-0"
-              onSubmit={this.searchContacts}
-            >
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                <i className="material-icons">search</i>
-              </button>
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                search={this.state.search}
-                onChange={this.updateSearchValue}
-              />
-            </form>
-          </nav>
-        </header>
+    return <div className="App container">
+        <div className="row">
+          <header className="App-header col-12">
+            <nav className="navbar navbar-light bg-light">
+              <a className="navbar-brand">
+                <img src="https://www.doublestruck.co.uk/wp-content/themes/html5blank-doublestruck/img/logo-ds.svg" width="150" height="auto" className="d-inline-block align-top" alt="logo" />
+              </a>
+              <h1 className="App-title">Super Address Book</h1>
+              <form className="form-inline my-2 my-lg-0" onSubmit={this.searchContacts}>
+                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+                  <i className="material-icons">search</i>
+                </button>
+                <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" search={this.state.search} onChange={this.updateSearchValue} />
+              </form>
+            </nav>
+          </header>
+        </div>
+        <div className="row">
+          {/* make sure the api data has loaded before loading the DOM element */
+          this.state.contacts && <AddressTable contacts={this.state.contacts} updateContactDetails={this.updateContactDetails} />}
+        </div>
         <ContactDetailsModal contactDetails={this.state.contactDetails} />
-        {/* make sure the api data has loaded before loading the DOM element */
-        this.state.contacts && (
-          <AddressTable
-            contacts={this.state.contacts}
-            updateContactDetails={this.updateContactDetails}
-          />
-        )}
         {this.state.modal && <div className="modal-backdrop fade show" />}
-      </div>
-    );
+      </div>;
   }
 }
 

@@ -63,7 +63,6 @@ class AddressTable extends Component {
 
   // used to update the local state - ideally lift the state into the parent component to avoid this
   componentWillReceiveProps(nextProps) {
-
     // when the AddressTable props are updated, update the state and add the profile pictures
     const contacts = nextProps.contacts.data.map(contact => {
       contact.profilePicture = profilePictureCreator(profileSVG); // use the picture randomizer above to creat profile pictures
@@ -189,7 +188,11 @@ class AddressTable extends Component {
                   className="clickable"
                 >
                   <td>
-                    <img alt="profile" src={person.profilePicture} />
+                    <img
+                      className="profile-picture"
+                      alt="profile"
+                      src={person.profilePicture}
+                    />
                   </td>
                   <td>{person.name}</td>
                   <td>{person.email}</td>
